@@ -1,0 +1,11 @@
+# Ignore the raw data and processed images
+data/
+*.zip
+*.png
+*.jpg
+*.gpkg
+
+# Ignore python's temporary files
+__pycache__/
+.venv/
+.ipynb_checkpoints/
