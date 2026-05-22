@@ -25,21 +25,34 @@ ax.set_extent([minx - 1000, maxx + 1000, miny - 1000, maxy + 1000], crs=ccrs.Mer
  #Map Layering 
 try:
     
-    ctx.add_basemap(ax, source=ctx.providers.Esri.WorldGrayCanvas, zoom=13, alpha=0.6, attribution=False)
+    ctx.add_basemap(ax, source=ctx.providers.CartoDB.Positron, zoom=13, alpha=0.7, attribution=False)
     ctx.add_basemap(ax, source=ctx.providers.Esri.WorldImagery, zoom=13, attribution=False)
     world = box(-2e7, -2e7, 2e7, 2e7)
     mask = gpd.GeoDataFrame(geometry=[world], crs=boundary.crs).overlay(boundary, how='difference')
-    mask.plot(ax=ax, facecolor='white', alpha=0.5, zorder=5)
+    mask.plot(ax=ax, facecolor='white', alpha=0.6, zorder=5)
 
 except Exception as e:
     print(f"Connection Warning: Basemap could not load. Error: {e}")
 
 # Romania Inset 
-inset_ax = fig.add_axes([0.10, 0.70, 0.20, 0.20], projection=ccrs.Mercator())
-ctx.add_basemap(inset_ax, source=ctx.providers.Esri.WorldTerrain, zoom=6, attribution=False, alpha=0.6)
+inset_ax = fig.add_axes([0.08, 0.68, 0.22, 0.22], projection=ccrs.Mercator())
 
-romania.plot(ax=inset_ax, facecolor='none', edgecolor='black', linewidth=0.6)
+romania.plot(ax=inset_ax, facecolor='#f9f9f9', edgecolor='black', linewidth=0.6)
+try:
+    ctx.add_basemap(inset_ax, 
+                    source=ctx.providers.Esri.WorldTopoMap, 
+                    zoom=6, 
+                    attribution=False, 
+                    alpha=0.9, 
+                    zorder=1)
+except Exception:
+    ctx.add_basemap(instet_ax, source=ctx.providers.Esri.WorldTerrain, zoom=6, attribution=False)
 boundary.plot(ax=inset_ax, color='red', markersize=5, zorder=10)
+inset_ax.set_axis_off()
+
+#Miniature boundary
+
+boundary.plot(ax=inset_ax, facecolor='red', edgecolor='red', linewidth=1.2, zorder=10)
 inset_ax.set_axis_off()
 
 # Connection Lines 
