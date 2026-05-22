@@ -1,4 +1,6 @@
 # Ignore the raw data and processed images
+venv/
+.venv/
 data/
 *.gpkg
 *.shp
@@ -8,5 +10,4 @@ data/
 
 # Ignore python's temporary files
 __pycache__/
-.venv/
 .ipynb_checkpoints/
