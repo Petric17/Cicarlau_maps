@@ -8,13 +8,18 @@ import cartopy.mpl.gridliner as gridliner
 from matplotlib_scalebar.scalebar import ScaleBar
 from matplotlib.patches import ConnectionPatch
 from shapely.geometry import box
+import os
+from pathlib import Path
+
 
 # Load Data 
-boundary_path = r'C:\Users\petrica.s\geospatial_project\geo_work\data\raw\UAT\uat_boundary.gpkg'
+script_dir = Path(__file__).resolve().parent
+base_dir = script_dir.parent
+boundary_path = base_dir / 'data' / 'raw' / 'UAT' / 'uat_boundary.gpkg'
 boundary = gpd.read_file(boundary_path).to_crs(epsg=3857)
 minx, miny, maxx, maxy = boundary.total_bounds
 
-romania_path = r"C:\Users\petrica.s\geospatial_project\geo_work\data\raw\geoBoundaries-ROU-ADM0-all\geoBoundaries-ROU-ADM0.shp"
+romania_path = base_dir / 'data' / 'raw' / 'geoBoundaries-ROU-ADM0-all' / 'geoBoundaries-ROU-ADM0.shp'
 romania = gpd.read_file(romania_path).to_crs(epsg=3857)
 
 # Setup Figure 
@@ -96,4 +101,4 @@ ax.add_artist(scale_bar)
 
 #save figure
 
-plt.savefig(r'C:\Users\petrica.s\geospatial_project\geo_work\Maps\location_map.png', dpi=300, bbox_inches='tight')
+plt.savefig(base_dir / 'Maps' / 'location_map.png', dpi=300, bbox_inches='tight')

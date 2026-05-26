@@ -1,10 +1,14 @@
-# Ignore the data folders
-data/
-raw/
-*.zip
-*.SAFE
-
-# Ignore environment/secret files
-.env
+# Python
 __pycache__/
-.ipynb_checkpoints/
+*.pyc
+
+# Data (Ignore large geospatial files)
+data/
+geo_work/data/
+*.gpkg
+*.shp
+*.tif
+
+# Docker / OS
+.DS_Store
+.env
